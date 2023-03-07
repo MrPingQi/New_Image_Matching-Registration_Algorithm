@@ -62,6 +62,12 @@ if par_flag
         parpool(maxNumCompThreads); % Start parallel computing, time needed
     end
 end
+if size(resample1,2)==1
+    resample1 = [resample1,resample1];
+end
+if size(resample2,2)==1
+    resample2 = [resample2,resample2];
+end
 warning off
     fprintf('\n** Registration starts, have fun\n\n'); ts=cputime;
 
@@ -109,12 +115,6 @@ else
     cor1 = correspond_1{index}; cor2 = correspond_2{index};
 end
     str = ['Done: Keypoints matching, time cost: ',num2str(toc),'s\n\n']; fprintf(str);
-if size(resample1,2)==1
-    resample1 = [resample1,resample1];
-end
-if size(resample2,2)==1
-    resample2 = [resample2,resample2];
-end
 cor1 = [cor1(:,1)/resample1(2), cor1(:,2)/resample1(1);];
 cor2 = [cor2(:,1)/resample2(2), cor2(:,2)/resample2(1);];
 matchment = Show_Matches(I1_s,I2_s,cor1,cor2,1); pause(0.01)
